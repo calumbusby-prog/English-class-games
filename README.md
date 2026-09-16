@@ -32,7 +32,37 @@ questions each time you play.
 
 Eliminated players keep watching the host screen for the rest of the game.
 
-## Running it
+## Deploy it online (recommended — no shared Wi-Fi needed)
+
+Deploying once gives you a permanent URL that works over any internet
+connection — the host's laptop and students' phones no longer need to be
+on the same network (useful for mobile data, school Wi-Fi that blocks
+device-to-device traffic, guest networks, etc.).
+
+**Render (easiest, free tier available):**
+
+1. Push this repo to GitHub (already done if you're reading this from
+   GitHub).
+2. Click **[Deploy to Render](https://render.com/deploy?repo=https://github.com/calumbusby-prog/english-class-games)**
+   — it reads `render.yaml` in this repo and sets everything up
+   automatically (no config needed).
+3. Sign in / connect your GitHub account if asked, confirm the branch,
+   and click **Apply**. First deploy takes 1–2 minutes.
+4. Render gives you a permanent URL like
+   `https://traitors-vocab-edition.onrender.com`. Use
+   `<that-url>/host.html` on the projector and share
+   `<that-url>/join.html` (or just the base URL) with students.
+
+Free-tier note: the service sleeps after ~15 minutes with no traffic and
+takes 30–60s to wake up on the next visit — fine for classroom use, just
+open the host screen a minute before class starts. If that's annoying,
+upgrade the service to a paid "always on" plan in the Render dashboard.
+
+Railway, Fly.io, and any other Node hosting work too — the app just needs
+`npm install && npm start` and reads its port from the `PORT` environment
+variable, which all of these set automatically.
+
+## Running it locally (same Wi-Fi)
 
 ```bash
 npm install
@@ -50,9 +80,6 @@ This starts a server on **http://localhost:3000**.
   - macOS: `ipconfig getifaddr en0`
   - Windows: `ipconfig` (look for "IPv4 Address")
   - Linux: `hostname -I`
-- If you'd rather not depend on classroom Wi-Fi, deploy the app once to a
-  free Node host (Render, Railway, Fly.io, etc.) and reuse that same URL
-  every lesson — `npm start` is the only start command it needs.
 
 ## Adding your own questions each lesson
 
