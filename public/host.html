@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>Host — Traitors: Vocab Edition</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">
+    <h1>🗡️ Traitors: Vocab Edition</h1>
+    <div class="sub">Host Screen</div>
+  </div>
+
+  <div id="error" class="error center"></div>
+
+  <!-- LOBBY / SETUP -->
+  <div id="view-setup" style="display:none">
+    <div class="card center">
+      <div class="muted">Room Code</div>
+      <div class="code-badge" id="roomCode">----</div>
+      <div class="muted">Students go to this site &rarr; Join a Game &rarr; enter this code</div>
+    </div>
+
+    <div class="card">
+      <h2>Players (<span id="playerCount">0</span>)</h2>
+      <ul class="player-list" id="playerList"></ul>
+      <p class="muted" id="playerHint">Need at least 4 players to start.</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h2>Questions</h2>
+        <p class="muted">One per line: <code>question | correct answer | wrong 1 | wrong 2 | wrong 3</code></p>
+        <textarea id="questionsInput" placeholder="What is a synonym for 'happy'? | Joyful | Angry | Tired
+Choose the correctly punctuated sentence. | It's raining today. | Its raining today. | Its' raining today."></textarea>
+        <div class="btn-row" style="margin-top:10px">
+          <button id="loadSample">Load Sample Questions</button>
+          <button id="saveQuestions" class="primary">Save Questions</button>
+        </div>
+        <p class="muted" id="questionsStatus"></p>
+      </div>
+
+      <div class="card">
+        <h2>Settings</h2>
+        <label>Number of traitors (blank = auto)</label>
+        <input type="number" id="setTraitorCount" min="1" placeholder="Auto" />
+        <label>Points per correct answer</label>
+        <input type="number" id="setPoints" value="100" />
+        <label>Questions per round</label>
+        <input type="number" id="setQPerRound" value="3" min="1" />
+        <label>Seconds to answer a question</label>
+        <input type="number" id="setQSeconds" value="20" min="5" />
+        <label>Seconds for round-table discussion</label>
+        <input type="number" id="setDiscussSeconds" value="90" min="10" />
+        <label>Seconds for voting / murder choice</label>
+        <input type="number" id="setVoteSeconds" value="30" min="5" />
+        <button id="saveSettings" class="block" style="margin-top:12px">Save Settings</button>
+      </div>
+    </div>
+
+    <div class="card center">
+      <button id="startGame" class="primary block" style="font-size:18px;padding:18px">Start Game</button>
+      <p class="muted" id="startHint"></p>
+    </div>
+  </div>
+
+  <!-- IN-GAME -->
+  <div id="view-game" style="display:none">
+    <div class="card center">
+      <span class="pill">Round <span id="roundNum">1</span></span>
+      <span class="pill">Pot: <span id="potAmount">0</span></span>
+      <span class="pill" id="phasePill">—</span>
+    </div>
+
+    <div id="phaseBody" class="card"></div>
+
+    <div class="card center">
+      <div id="timerBox"></div>
+      <button id="nextBtn" class="primary block" style="font-size:18px;padding:18px"></button>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h2>Players</h2>
+        <ul class="player-list" id="gamePlayerList"></ul>
+      </div>
+      <div class="card">
+        <h2>Story So Far</h2>
+        <div class="log-feed" id="logFeed"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GAME OVER -->
+  <div id="view-over" style="display:none">
+    <div class="card center">
+      <h2 id="winnerTitle" class="display"></h2>
+      <p class="muted">Final pot: <span id="finalPot"></span></p>
+    </div>
+    <div class="card">
+      <h2>Leaderboard</h2>
+      <ol class="leaderboard" id="finalBoard"></ol>
+    </div>
+    <div class="card center">
+      <button id="playAgain" class="primary block">Play Again (Same Players)</button>
+    </div>
+  </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="js/host.js"></script>
+</body>
+</html>

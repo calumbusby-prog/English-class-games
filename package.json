@@ -1,0 +1,14 @@
+{
+  "name": "traitors-vocab-edition",
+  "version": "1.0.0",
+  "description": "A live, in-person classroom game (styled on 'The Traitors') for practicing vocabulary and grammar. Students join with a room code on their phones; a teacher-controlled host screen drives the game.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "node server/index.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "socket.io": "^4.7.5"
+  }
+}

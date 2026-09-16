@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>Join — Traitors: Vocab Edition</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<div class="wrap narrow">
+  <div class="brand">
+    <h1>🗡️ Traitors</h1>
+    <div class="sub">Vocab Edition</div>
+  </div>
+
+  <div id="error" class="error center"></div>
+
+  <!-- JOIN FORM -->
+  <div id="view-join" style="display:none">
+    <div class="card">
+      <label>Room Code</label>
+      <input type="text" id="joinCode" maxlength="4" autocapitalize="characters" placeholder="ABCD" style="text-transform:uppercase;text-align:center;font-size:28px;letter-spacing:0.15em" />
+      <label>Your Name</label>
+      <input type="text" id="joinName" maxlength="24" placeholder="First name" />
+      <button id="joinBtn" class="primary block" style="margin-top:14px">Join Game</button>
+    </div>
+  </div>
+
+  <!-- WAITING IN LOBBY -->
+  <div id="view-waiting" style="display:none">
+    <div class="card center">
+      <div class="waiting-icon">🕯️</div>
+      <h2>You're in, <span id="waitName"></span>.</h2>
+      <p class="muted">Waiting for the host to start the game...</p>
+    </div>
+  </div>
+
+  <!-- ROLE REVEAL -->
+  <div id="view-role" style="display:none">
+    <div class="card role-reveal-card" id="roleCard">
+      <div class="muted">Your role is...</div>
+      <div class="role-name" id="roleName"></div>
+      <p id="roleDesc" class="muted"></p>
+      <div id="fellowTraitors"></div>
+    </div>
+  </div>
+
+  <!-- CHALLENGE / QUESTION -->
+  <div id="view-question" style="display:none">
+    <div class="card center">
+      <div id="timerBox"></div>
+      <div class="question-text" id="qText"></div>
+      <div class="choices" id="qChoices"></div>
+    </div>
+  </div>
+
+  <!-- GENERIC WAITING (between phases) -->
+  <div id="view-genericWait" style="display:none">
+    <div class="card center">
+      <div class="waiting-icon" id="waitIcon">⏳</div>
+      <h2 id="waitTitle">Please wait...</h2>
+      <p class="muted" id="waitSub"></p>
+    </div>
+  </div>
+
+  <!-- ROUND TABLE (discussion, in person) -->
+  <div id="view-roundtable" style="display:none">
+    <div class="card center">
+      <div id="timerBox2"></div>
+      <h2>🕯️ The Round Table</h2>
+      <p class="muted">Discuss out loud with your class. Who do you suspect?</p>
+    </div>
+  </div>
+
+  <!-- VOTING -->
+  <div id="view-voting" style="display:none">
+    <div class="card center">
+      <div id="timerBox3"></div>
+      <h2>Cast Your Vote</h2>
+      <p class="muted">Who do you want to banish?</p>
+    </div>
+    <div class="card" id="voteList"></div>
+  </div>
+
+  <!-- MURDER CHOICE (traitors only) -->
+  <div id="view-murder" style="display:none">
+    <div class="card center">
+      <div id="timerBox4"></div>
+      <h2>🔪 Choose Your Victim</h2>
+      <p class="muted">Fellow traitors, decide together who to eliminate tonight.</p>
+    </div>
+    <div class="card" id="murderList"></div>
+  </div>
+
+  <!-- ELIMINATED (spectator) -->
+  <div id="view-eliminated" style="display:none">
+    <div class="card center">
+      <div class="waiting-icon">👻</div>
+      <h2 id="elimTitle"></h2>
+      <p class="muted">You can keep watching the host screen for the rest of the game.</p>
+    </div>
+  </div>
+
+  <!-- GAME OVER -->
+  <div id="view-over" style="display:none">
+    <div class="card center">
+      <h2 id="winnerTitle" class="display"></h2>
+    </div>
+  </div>
+
+  <!-- Persistent leaderboard / pot strip -->
+  <div class="card" id="hud" style="display:none">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <span class="pill">Score: <span id="myScore">0</span></span>
+      <span class="pill" id="myRolePill" style="display:none"></span>
+      <span class="pill">Pot: <span id="potHud">0</span></span>
+    </div>
+  </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="js/join.js"></script>
+</body>
+</html>
