@@ -1,4 +1,13 @@
-# Traitors: Vocab Edition
+# English Class Games
+
+Two classroom games live in this repo:
+
+- **Traitors: Vocab Edition** — a live, multiplayer game styled on *The
+  Traitors*, built to drill vocabulary or grammar.
+- **Say What You Mean** — a solo, single-page branching game about direct
+  and indirect communication at work.
+
+## Traitors: Vocab Edition
 
 A live, in-person classroom game styled on *The Traitors*, built to drill
 vocabulary or grammar. Students join with a room code on their own phones;
@@ -110,3 +119,35 @@ Other settings you can tune per session (also on the setup page):
   briefly or the page refreshes.
 - After a game ends, hit **Play Again** on the host screen to replay with
   the same group (new roles are dealt) without everyone re-joining.
+
+## Say What You Mean
+
+A solo, single-player game built around a lesson on **direct vs. indirect
+communication styles** (assertive, blunt, straightforward, outspoken /
+tactful, reserved, vague, passive-aggressive). One student, one device, no
+room code, no server round-trip — it's a static page that runs entirely in
+the browser.
+
+Open `promotion.html` (or click **Play Solo** on the home page) to play.
+Locally that's `http://localhost:3000/promotion.html`; once deployed, add
+`/promotion.html` to your deployed URL.
+
+### How it plays
+
+Over 8 workplace scenarios (a client with rigid instructions, an
+embarrassed colleague before a pitch, an unfair performance review, and so
+on), the player picks how to respond — each option is labeled with one of
+the eight vocabulary words. Sometimes the direct option is the sharper
+call; sometimes the indirect one is. A "Reputation" meter tracks how well
+the choices land, and the final score decides the outcome, from **you
+receive a promotion** (the best ending) down to being quietly reassigned.
+
+Good for: reviewing the vocabulary after the lesson, or as a discussion
+starter — the end screen recaps every word the student picked, which
+pairs well with the lesson's closing question ("which of these words
+describes you best?").
+
+Because it's a static page, it can also be opened directly from a file
+system or any static host — it doesn't need the Node server at all,
+though serving it alongside the other game via `npm start` is the easiest
+option.
