@@ -48,8 +48,8 @@ const SCENARIOS = [
       },
       {
         word: 'Blunt', style: 'direct', good: false, delta: -13,
-        line: '"Whoa, huge typo on slide one!" you say loudly, in front of the whole room.',
-        feedback: 'The information was correct, but blunt honesty delivered in public embarrassed your colleague right before their pitch.',
+        line: '"Heads up, there\'s a typo on slide one," you mention as the room is already filling up and settling in.',
+        feedback: 'The information was correct, but blunt honesty delivered right there in the open embarrassed your colleague as people were watching.',
       },
     ],
   },
@@ -96,8 +96,8 @@ const SCENARIOS = [
       },
       {
         word: 'Outspoken', style: 'direct', good: false, delta: -13,
-        line: 'You share your strong opinion at full volume, and the lunch table goes tense.',
-        feedback: "Being outspoken is usually an asset, but here it cost you — some moments call for tact over honesty.",
+        line: '"Honestly? I think you\'re both wrong," you say, and lay out exactly where you stand.',
+        feedback: "Being outspoken is usually an asset, but here it cost you — a work lunch isn't the moment for a strong, unfiltered opinion.",
       },
     ],
   },
@@ -112,8 +112,8 @@ const SCENARIOS = [
       },
       {
         word: 'Blunt', style: 'direct', good: false, delta: -12,
-        line: '"Can you please stop being so loud? Some of us actually work," you snap in front of everyone.',
-        feedback: 'The request was fair, but blunt, public criticism of a senior colleague damaged the relationship more than it needed to.',
+        line: '"You\'re on the phone constantly and it\'s making it hard to focus," you say plainly, right at your desk, mid-call.',
+        feedback: 'The point was fair, but blunt feedback delivered on the spot, in front of others, landed as public criticism of a senior colleague.',
       },
     ],
   },
@@ -157,12 +157,22 @@ function clampScore(n) {
   return Math.max(MIN_SCORE, Math.min(MAX_SCORE, n));
 }
 
+function shuffled(arr) {
+  const copy = arr.slice();
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
 function newGame() {
   state = {
     screen: 'intro',
     scenarioIndex: 0,
     score: START_SCORE,
     picked: null,
+    currentOptions: shuffled(SCENARIOS[0].options),
     history: [], // { word, style, good }
   };
   render();
@@ -181,6 +191,8 @@ function nextScenario() {
   state.picked = null;
   if (state.scenarioIndex >= SCENARIOS.length) {
     state.screen = 'outcome';
+  } else {
+    state.currentOptions = shuffled(SCENARIOS[state.scenarioIndex].options);
   }
   render();
 }
@@ -256,7 +268,7 @@ function renderScenario() {
     <div class="progress-note">Week ${state.scenarioIndex + 1} of ${SCENARIOS.length}</div>
   `;
 
-  const options = s.options
+  const options = state.currentOptions
     .map((opt, i) => {
       const disabled = picked ? 'disabled' : '';
       let cls = 'option-btn';
@@ -329,7 +341,7 @@ function render() {
     app.innerHTML = renderScenario();
     const s = SCENARIOS[state.scenarioIndex];
     app.querySelectorAll('.option-btn').forEach((btn) => {
-      btn.addEventListener('click', () => pickOption(s, s.options[Number(btn.dataset.idx)]));
+      btn.addEventListener('click', () => pickOption(s, state.currentOptions[Number(btn.dataset.idx)]));
     });
     const nextBtn = document.getElementById('nextBtn');
     if (nextBtn) nextBtn.addEventListener('click', nextScenario);
